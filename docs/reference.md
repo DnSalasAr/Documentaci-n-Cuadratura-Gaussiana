@@ -1,6 +1,6 @@
 # API Reference
 
-## cuadrature Module
+## Módulo de cuadratura
 
 ::: cuadrature
     options:
