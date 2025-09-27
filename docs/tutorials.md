@@ -3,35 +3,25 @@
 ## Uso básico
 
 ```python
+
 from cuadrature import gaussxw, gaussxwab, polinomio
 
-# Integrate the function from 1 to 3 with 7 points
+# Integrar la función de 1 a 3 con 7 puntos
 N = 7
-x, w = gaussxw(N)
-x_scaled, w_scaled = gaussxwab(1, 3, x, w)
-result = sum(polinomio(x_scaled) * w_scaled)
 
-print(f"Integration result with N={N}: {result}")
+from cuadrature import calcular_integral, encontrar_N_optimo
 
-# Test different numbers of points to find optimal N
-difMinima = float('inf')
-masCerca = 0
-mejorN = 0
+# Calcular la integral con un número específico de puntos
+N = 7
+resultado = calcular_integral(N)
+print(f"Resultado con N={N}: {resultado}")
 
-for i in range(1, 15):
-    x, w = gaussxw(i)
-    x_scaled, w_scaled = gaussxwab(1, 3, x, w)
-    Integral = sum(polinomio(x_scaled) * w_scaled)
+# Encontrar el N óptimo automáticamente por convergencia
+N_optimo, valor_optimo, historia = encontrar_N_optimo(tolerancia=1e-10)
 
-    print(f"N={i}: {Integral}")
+print(f"\nN óptimo encontrado: {N_optimo}")
+print(f"Valor de la integral: {valor_optimo}")
+print(f"Diferencia con valor de referencia: {abs(valor_optimo - 317.344246673826356)}")
 
-    # Con WolframAlpha se sabe que el valor de la integral es el siguiente
-    expected = 317.344246673826356
-    if abs(Integral - expected) < difMinima:
-        difMinima = abs(Integral - expected)
-        masCerca = Integral
-        mejorN = i
-
-print(f"Optimal N: {mejorN}, Value: {masCerca}, Difference: {difMinima}") 
 ```
 

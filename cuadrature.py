@@ -1,80 +1,105 @@
 """
-Gaussian Quadrature integration for the function x^6 - sin(2x)*x^2 from 1 to 3.
+Cálculo de integral definida usando cuadratura gaussiana.
+Integrando (x^6 - sin(2x)·x^6. 
+La integral es de 1 a 3.
 
-This script finds the optimal number of sample points N for accurate integration.
+Este programa encuentra el número óptimo de puntos N mediante convergencia sucesiva (sugerecia del profesor) y calcula la integral.
 """
 
-from scipy.special import legendre
-import matplotlib.pyplot as plt
 import numpy as np
 
 def gaussxw(N):
     """
-    Calculate Gaussian quadrature points and weights for interval [-1, 1].
+    Calcula los puntos y pesos de cuadratura gaussiana para el intervalo [-1, 1], usando los ppolinomios de Legendre
     
     Args:
-        N (int): Number of sample points
+        N (int): Número de puntos de muestreo
         
     Returns:
-        tuple: (x, w) where x are the sample points and w are the weights
-        
-    Example:
-        >>> x, w = gaussxw(3)
-        >>> print(f"Points: {x}, Weights: {w}")
+        tuple: (x, w) donde x son los puntos y w son los pesos
     """
     x, w = np.polynomial.legendre.leggauss(N)
     return x, w
 
 def gaussxwab(a, b, x, w):
     """
-    Scale Gaussian quadrature from [-1, 1] to arbitrary interval [a, b].
+    Escala la cuadratura gaussiana del intervalo [-1, 1] a [a, b].
     
     Args:
-        a (float): Lower limit of integration
-        b (float): Upper limit of integration
-        x (array): Sample points in [-1, 1]
-        w (array): Weights in [-1, 1]
+        a (float): Límite inferior de integración
+        b (float): Límite superior de integración
+        x (array): Puntos de muestreo en [-1, 1]
+        w (array): Pesos en [-1, 1]
         
     Returns:
-        tuple: (x_scaled, w_scaled) scaled to [a, b]
-        
-    Example:
-        >>> x, w = gaussxw(3)
-        >>> x_scaled, w_scaled = gaussxwab(0, 2, x, w)
+        tuple: (x_escalado, w_escalado) en el intervalo [a, b]
     """
     return 0.5 * (b - a) * x + 0.5 * (b + a), 0.5 * (b - a) * w
 
-
-muestreo7, peso7 = gaussxw(7)
-muestreo7, peso7 = gaussxwab(1, 3, muestreo7, peso7)
-
-def polinomio(varInd):
+def integrando(x):
     """
-    Function to integrate: x^6 - sin(2x)*x^2
+    Función a integrar: f(x) = x^6 - sin(2x)·x^2
+    """
+    return x**6 - np.sin(2*x) * x**2
+
+def calcular_integral(N, a=1, b=3): #En este caso la integral es de 1 a 3, por eso a y b tienen valores predeterminados
+    """
+    Calcula la integral usando cuadratura gaussiana con N puntos.
     
     Args:
-        varInd (float or array): Input value(s)
+        N (int): Número de puntos de muestreo
+        a (float): Límite inferior (default: 1)
+        b (float): Límite superior (default: 3)
         
     Returns:
-        float or array: Function value(s)
+        float: Valor aproximado de la integral
     """
-    return varInd**6 -  np.sin(2*varInd)* varInd**2 
+    x, w = gaussxw(N)
+    x_esc, w_esc = gaussxwab(a, b, x, w)
+    return np.sum(integrando(x_esc) * w_esc)
 
-
-difMinima = float('inf')
-masCerca = 0
-mejorN = 0  
-
-for i in range(1,15):
-    muestreo, peso = gaussxw(i)
-    muestreo, peso = gaussxwab(1, 3, muestreo, peso)
-    Integral = np.sum(polinomio(muestreo) * peso)
+def encontrar_N_optimo(tolerancia=1e-10, N_max=20):
+    """
+    Encuentra el N óptimo comparando I_N+1 con I_N hasta que sean iguales (diferencia muy pequeña entre ellos).
     
-    print(f"Valor de la integral con N={i}: {Integral}")
+    Args:
+        tolerancia (float): Diferencia mínima para considerar convergencia
+        N_max (int): Número máximo de iteraciones
+        
+    Returns:
+        tuple: (N_optimo, valor_integral, historia_convergencia)
+    """
     
-    if abs(Integral - 317.344246673826356) < difMinima:
-        difMinima = abs(Integral - 317.344246673826356)
-        masCerca = Integral
-        mejorN = i
+    # Inicializar variables
+    I_anterior = calcular_integral(1)  # Empezar con N=1
+    historial = []  # Para guardar la historia de convergencia
+    
+    print(f"N=1: I = {I_anterior:.10f}")
+    
+    for N in range(2, N_max + 1):
+        I_actual = calcular_integral(N)
+        diferencia = abs(I_actual - I_anterior)
+        
+        historial.append((N, I_actual, diferencia))
+        print(f"N={N}: I = {I_actual:.10f}, |I_N - I_N-1| = {diferencia:.2e}")
+        
+        # Verificar convergencia
+        if diferencia < tolerancia:
+            print(f"\n¡Convergencia alcanzada!")
+            print(f"I_{N} ≈ I_{N-1} con diferencia: {diferencia:.2e}")
+            return N, I_actual, historial
+        
+        I_anterior = I_actual
+    
+    print(f"\nNo se alcanzó convergencia en {N_max} iteraciones")
+    print(f"Última diferencia: {historia[-1][2]:.2e}")
+    return N_max, I_actual, historial
 
-print(f"\nEl mas cercano al valor esperado es: {masCerca}, con N={mejorN}")
+if __name__ == "__main__":
+    # Ejecutar la búsqueda de convergencia
+    N_optimo, valor_optimo, historial = encontrar_N_optimo()
+        
+    print(f"RESULTADO FINAL:")
+    print(f"N óptimo: {N_optimo}")
+    print(f"Valor de la integral: {valor_optimo:.10f}")
+    print(f"Diferencia con WolframAlpha: {abs(valor_optimo - 317.344246673826356):.2e}")
