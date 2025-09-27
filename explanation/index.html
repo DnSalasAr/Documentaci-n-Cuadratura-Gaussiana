@@ -63,6 +63,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#cuadratura-gaussiana" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -179,6 +184,21 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Explicación
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
@@ -191,6 +211,34 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#polinomios-de-legendre" class="md-nav__link">
+    <span class="md-ellipsis">
+      Polinomios de Legendre
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -257,6 +305,25 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#polinomios-de-legendre" class="md-nav__link">
+    <span class="md-ellipsis">
+      Polinomios de Legendre
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -272,9 +339,55 @@
 
 
 
-  <h1>Explicación</h1>
-
-
+<h1 id="cuadratura-gaussiana">Cuadratura Gaussiana</h1>
+<p>La idea principal está dada por
+\begin{align}
+\int_a^b {\rm{d}}x f(x) \approx \sum_{k=1}^{N} w_k f(x_k).
+\end{align}
+donde:
+  * <span class="arithmatex">\(w_k\)</span> son los "pesos"
+  * <span class="arithmatex">\(x_k\)</span> son los puntos de muestreo</p>
+<p>Para las ecuaciones de Newton-Cotes de la clase anterior:<br />
+  * Los puntos de muestreo son <strong>equidistantes</strong>.
+  * Una ecuación de Newton-Cotes de orden <span class="arithmatex">\(N\)</span> es <em>exacta</em> (i.e., no hay aproximación) para un polinomio de grado <span class="arithmatex">\(N\)</span>.
+  * Un polinomio de orden <span class="arithmatex">\(N\)</span> aproxima una función bien comportada mejor que un polinomio de orden <span class="arithmatex">\(N-1\)</span>, debido al grado de libertad añadido.</p>
+<p>Por el otro lado, para la cuadratura Gaussiana:
+  * Los puntos de muestreo se escogen de manera tal que <strong>no son equidistantes</strong>. Esto introduce más grados de libertad para la misma discretización en <span class="arithmatex">\(N\)</span> subregiones.
+  * Es exacta para un polinomio de orden <span class="arithmatex">\((2N - 1)\)</span>.
+  * Es decir, la cuadratura Gaussiana da la misma precisión que un polinomio de orden <span class="arithmatex">\((2N - 1)\)</span>.</p>
+<p>Hablemos de los pros y los contras del uso de cuadraturas Gaussianas para evaluar integrales.</p>
+<ul>
+<li>Pros:</li>
+<li>La ecuación para evaluar los errores es muy complicada. Sin embargo, la aproximación mejora con un error que decrece por un factor <span class="arithmatex">\({\rm{const.}} / N^2\)</span> cuando se incrementa el número de subregiones de discretización en uno.</li>
+<li>
+<p>Ejemplo: Pasar de <span class="arithmatex">\(N=10\)</span> a <span class="arithmatex">\(N=11\)</span>, mejora el resultado de la estimación por un factor de <span class="arithmatex">\(\approx 100\)</span>. Esto indica que la convergencia ocurre con muy pocos puntos de muestreo.</p>
+</li>
+<li>
+<p>Cons:</p>
+</li>
+<li>Sólo funciona bien su la función a integrar es relativamente bien comportada. Si no lo es, se requiren más puntos de muestreo cerca de las regiones problemáticas.</li>
+<li>Es muy complicado evaluar el error de manera precisa si lo necesitamos.</li>
+</ul>
+<h2 id="polinomios-de-legendre">Polinomios de Legendre</h2>
+<p>Los polinomios de Legendre son un sistema de polinomios ortogonales que pueden ser definidos de manera recursiva. Tenemos:
+\begin{align}
+\forall (M, N) \in\mathbb N^2, \quad \int_{-1}^1 {\rm{d}}x P_N(x)P_M(x) = \frac{2\delta_{MN}}{2N+1}.
+\end{align}
+Note que los polinomios están definidos en el intervalo <span class="arithmatex">\([-1, 1]\)</span>.
+Los se definen empezando con
+\begin{align}
+P_0(x) = 1 \Rightarrow P_1(x) = x,
+\end{align}
+tal que los siguientes órdenes se generan con la regla de recursividad
+\begin{align}
+(N+1)P_{N+1}(x) = (2N+1)xP_N(x) -NP_{N-1}(x).
+\end{align}
+Alternativamente, los polinomios pueden ser definidos de manera iterativa bajo la regla (fórmula de Rodrigues)
+\begin{align}
+P_N(x) = \frac1{2^N N!}\frac{d^N}{dx^N}\left[(x^2-1)^N\right].
+\end{align}</p>
+<p>Una vez que conocemos los polinomios de Legendre, debemos encontrar sus raíces y calcular los pesos de acuerdo con la regla que describimos al inicio de este notebook.</p>
+<p>Esto es un procedimiento ligeramente costoso dependiendo de la metodología que se utilice. La idea es que si necesitamos evaluar la integral utilizando distintos intervalos de integración, primero realizamos el cálculo de los puntos de muestreo <span class="arithmatex">\(x_k\)</span> y los pesos <span class="arithmatex">\(w_k\)</span> en el intervalo <span class="arithmatex">\([-1, 1]\)</span>. Posteriormente, podemos escalar los parámetros para ser modificados a un intervalo <span class="arithmatex">\([a, b]\)</span></p>
 
 
 
@@ -329,6 +442,8 @@
       <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
       
         <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
       
     
   </body>

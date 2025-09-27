@@ -289,6 +289,24 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#cuadrature.calcular_integral" class="md-nav__link">
+    <span class="md-ellipsis">
+      calcular_integral
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cuadrature.encontrar_N_optimo" class="md-nav__link">
+    <span class="md-ellipsis">
+      encontrar_N_optimo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cuadrature.gaussxw" class="md-nav__link">
     <span class="md-ellipsis">
       gaussxw
@@ -307,9 +325,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cuadrature.polinomio" class="md-nav__link">
+  <a href="#cuadrature.integrando" class="md-nav__link">
     <span class="md-ellipsis">
-      polinomio
+      integrando
     </span>
   </a>
   
@@ -374,6 +392,24 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#cuadrature.calcular_integral" class="md-nav__link">
+    <span class="md-ellipsis">
+      calcular_integral
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cuadrature.encontrar_N_optimo" class="md-nav__link">
+    <span class="md-ellipsis">
+      encontrar_N_optimo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cuadrature.gaussxw" class="md-nav__link">
     <span class="md-ellipsis">
       gaussxw
@@ -392,9 +428,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cuadrature.polinomio" class="md-nav__link">
+  <a href="#cuadrature.integrando" class="md-nav__link">
     <span class="md-ellipsis">
-      polinomio
+      integrando
     </span>
   </a>
   
@@ -437,8 +473,10 @@
 
     <div class="doc doc-contents first">
 
-        <p>Gaussian Quadrature integration for the function x^6 - sin(2x)*x^2 from 1 to 3.</p>
-<p>This script finds the optimal number of sample points N for accurate integration.</p>
+        <p>Cálculo de integral definida usando cuadratura gaussiana.
+Integrando (x^6 - sin(2x)·x^6. 
+La integral es de 1 a 3.</p>
+<p>Este programa encuentra el número óptimo de puntos N mediante convergencia sucesiva (sugerecia del profesor) y calcula la integral.</p>
 
 
 
@@ -463,15 +501,15 @@
 <div class="doc doc-object doc-function">
 
 
-<h3 id="cuadrature.gaussxw" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">gaussxw</span><span class="p">(</span><span class="n">N</span><span class="p">)</span></code>
+<h3 id="cuadrature.calcular_integral" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">calcular_integral</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span></code>
 
 </h3>
 
 
     <div class="doc doc-contents ">
 
-        <p>Calculate Gaussian quadrature points and weights for interval [-1, 1].</p>
+        <p>Calcula la integral usando cuadratura gaussiana con N puntos.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -494,7 +532,305 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Number of sample points</p>
+                <p>Número de puntos de muestreo</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>a</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Límite inferior (default: 1)</p>
+              </div>
+            </td>
+            <td>
+                  <code>1</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>b</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Límite superior (default: 3)</p>
+              </div>
+            </td>
+            <td>
+                  <code>3</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>float</code></td>            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Valor aproximado de la integral</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="quote">
+              <summary>Source code in <code>cuadrature.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">calcular_integral</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span> <span class="c1">#En este caso la integral es de 1 a 3, por eso a y b tienen valores predeterminados</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calcula la integral usando cuadratura gaussiana con N puntos.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        N (int): Número de puntos de muestreo</span>
+<span class="sd">        a (float): Límite inferior (default: 1)</span>
+<span class="sd">        b (float): Límite superior (default: 3)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: Valor aproximado de la integral</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">gaussxw</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+    <span class="n">x_esc</span><span class="p">,</span> <span class="n">w_esc</span> <span class="o">=</span> <span class="n">gaussxwab</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">integrando</span><span class="p">(</span><span class="n">x_esc</span><span class="p">)</span> <span class="o">*</span> <span class="n">w_esc</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="cuadrature.encontrar_N_optimo" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">encontrar_N_optimo</span><span class="p">(</span><span class="n">tolerancia</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span> <span class="n">N_max</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Encuentra el N óptimo comparando I_N+1 con I_N hasta que sean iguales (diferencia muy pequeña entre ellos).</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>tolerancia</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Diferencia mínima para considerar convergencia</p>
+              </div>
+            </td>
+            <td>
+                  <code>1e-10</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>N_max</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Número máximo de iteraciones</p>
+              </div>
+            </td>
+            <td>
+                  <code>20</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>tuple</code></td>            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>(N_optimo, valor_integral, historia_convergencia)</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="quote">
+              <summary>Source code in <code>cuadrature.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span>
+<span class="normal">94</span>
+<span class="normal">95</span>
+<span class="normal">96</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">encontrar_N_optimo</span><span class="p">(</span><span class="n">tolerancia</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span> <span class="n">N_max</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Encuentra el N óptimo comparando I_N+1 con I_N hasta que sean iguales (diferencia muy pequeña entre ellos).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        tolerancia (float): Diferencia mínima para considerar convergencia</span>
+<span class="sd">        N_max (int): Número máximo de iteraciones</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple: (N_optimo, valor_integral, historia_convergencia)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Inicializar variables</span>
+    <span class="n">I_anterior</span> <span class="o">=</span> <span class="n">calcular_integral</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Empezar con N=1</span>
+    <span class="n">historial</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Para guardar la historia de convergencia</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;N=1: I = </span><span class="si">{</span><span class="n">I_anterior</span><span class="si">:</span><span class="s2">.10f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">N</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">N_max</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">I_actual</span> <span class="o">=</span> <span class="n">calcular_integral</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+        <span class="n">diferencia</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">I_actual</span> <span class="o">-</span> <span class="n">I_anterior</span><span class="p">)</span>
+
+        <span class="n">historial</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="n">I_actual</span><span class="p">,</span> <span class="n">diferencia</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;N=</span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s2">: I = </span><span class="si">{</span><span class="n">I_actual</span><span class="si">:</span><span class="s2">.10f</span><span class="si">}</span><span class="s2">, |I_N - I_N-1| = </span><span class="si">{</span><span class="n">diferencia</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Verificar convergencia</span>
+        <span class="k">if</span> <span class="n">diferencia</span> <span class="o">&lt;</span> <span class="n">tolerancia</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">¡Convergencia alcanzada!&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;I_</span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s2"> ≈ I_</span><span class="si">{</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="si">}</span><span class="s2"> con diferencia: </span><span class="si">{</span><span class="n">diferencia</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">N</span><span class="p">,</span> <span class="n">I_actual</span><span class="p">,</span> <span class="n">historial</span>
+
+        <span class="n">I_anterior</span> <span class="o">=</span> <span class="n">I_actual</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">No se alcanzó convergencia en </span><span class="si">{</span><span class="n">N_max</span><span class="si">}</span><span class="s2"> iteraciones&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Última diferencia: </span><span class="si">{</span><span class="n">historia</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">N_max</span><span class="p">,</span> <span class="n">I_actual</span><span class="p">,</span> <span class="n">historial</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="cuadrature.gaussxw" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">gaussxw</span><span class="p">(</span><span class="n">N</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Calcula los puntos y pesos de cuadratura gaussiana para el intervalo [-1, 1], usando los ppolinomios de Legendre</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>N</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Número de puntos de muestreo</p>
               </div>
             </td>
             <td>
@@ -519,25 +855,13 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>(x, w) where x are the sample points and w are the weights</p>
+                <p>(x, w) donde x son los puntos y w son los pesos</p>
               </div>
             </td>
           </tr>
       </tbody>
     </table>
 
-
-<details class="example" open>
-  <summary>Example</summary>
-  <blockquote>
-<blockquote>
-<blockquote>
-<p>x, w = gaussxw(3)
-print(f"Points: {x}, Weights: {w}")</p>
-</blockquote>
-</blockquote>
-</blockquote>
-</details>
 
             <details class="quote">
               <summary>Source code in <code>cuadrature.py</code></summary>
@@ -552,23 +876,15 @@ print(f"Points: {x}, Weights: {w}")</p>
 <span class="normal">19</span>
 <span class="normal">20</span>
 <span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">gaussxw</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+<span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">gaussxw</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Calculate Gaussian quadrature points and weights for interval [-1, 1].</span>
+<span class="sd">    Calcula los puntos y pesos de cuadratura gaussiana para el intervalo [-1, 1], usando los ppolinomios de Legendre</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        N (int): Number of sample points</span>
+<span class="sd">        N (int): Número de puntos de muestreo</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        tuple: (x, w) where x are the sample points and w are the weights</span>
-
-<span class="sd">    Example:</span>
-<span class="sd">        &gt;&gt;&gt; x, w = gaussxw(3)</span>
-<span class="sd">        &gt;&gt;&gt; print(f&quot;Points: {x}, Weights: {w}&quot;)</span>
+<span class="sd">        tuple: (x, w) donde x son los puntos y w son los pesos</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polynomial</span><span class="o">.</span><span class="n">legendre</span><span class="o">.</span><span class="n">leggauss</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">w</span>
@@ -589,7 +905,7 @@ print(f"Points: {x}, Weights: {w}")</p>
 
     <div class="doc doc-contents ">
 
-        <p>Scale Gaussian quadrature from [-1, 1] to arbitrary interval [a, b].</p>
+        <p>Escala la cuadratura gaussiana del intervalo [-1, 1] a [a, b].</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -612,7 +928,7 @@ print(f"Points: {x}, Weights: {w}")</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Lower limit of integration</p>
+                <p>Límite inferior de integración</p>
               </div>
             </td>
             <td>
@@ -628,7 +944,7 @@ print(f"Points: {x}, Weights: {w}")</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Upper limit of integration</p>
+                <p>Límite superior de integración</p>
               </div>
             </td>
             <td>
@@ -644,7 +960,7 @@ print(f"Points: {x}, Weights: {w}")</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Sample points in [-1, 1]</p>
+                <p>Puntos de muestreo en [-1, 1]</p>
               </div>
             </td>
             <td>
@@ -660,7 +976,7 @@ print(f"Points: {x}, Weights: {w}")</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Weights in [-1, 1]</p>
+                <p>Pesos en [-1, 1]</p>
               </div>
             </td>
             <td>
@@ -685,7 +1001,7 @@ print(f"Points: {x}, Weights: {w}")</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>(x_scaled, w_scaled) scaled to [a, b]</p>
+                <p>(x_escalado, w_escalado) en el intervalo [a, b]</p>
               </div>
             </td>
           </tr>
@@ -693,21 +1009,13 @@ print(f"Points: {x}, Weights: {w}")</p>
     </table>
 
 
-<details class="example" open>
-  <summary>Example</summary>
-  <blockquote>
-<blockquote>
-<blockquote>
-<p>x, w = gaussxw(3)
-x_scaled, w_scaled = gaussxwab(0, 2, x, w)</p>
-</blockquote>
-</blockquote>
-</blockquote>
-</details>
-
             <details class="quote">
               <summary>Source code in <code>cuadrature.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">28</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
 <span class="normal">29</span>
 <span class="normal">30</span>
 <span class="normal">31</span>
@@ -716,30 +1024,18 @@ x_scaled, w_scaled = gaussxwab(0, 2, x, w)</p>
 <span class="normal">34</span>
 <span class="normal">35</span>
 <span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">gaussxwab</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">w</span><span class="p">):</span>
+<span class="normal">37</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">gaussxwab</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">w</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Scale Gaussian quadrature from [-1, 1] to arbitrary interval [a, b].</span>
+<span class="sd">    Escala la cuadratura gaussiana del intervalo [-1, 1] a [a, b].</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        a (float): Lower limit of integration</span>
-<span class="sd">        b (float): Upper limit of integration</span>
-<span class="sd">        x (array): Sample points in [-1, 1]</span>
-<span class="sd">        w (array): Weights in [-1, 1]</span>
+<span class="sd">        a (float): Límite inferior de integración</span>
+<span class="sd">        b (float): Límite superior de integración</span>
+<span class="sd">        x (array): Puntos de muestreo en [-1, 1]</span>
+<span class="sd">        w (array): Pesos en [-1, 1]</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        tuple: (x_scaled, w_scaled) scaled to [a, b]</span>
-
-<span class="sd">    Example:</span>
-<span class="sd">        &gt;&gt;&gt; x, w = gaussxw(3)</span>
-<span class="sd">        &gt;&gt;&gt; x_scaled, w_scaled = gaussxwab(0, 2, x, w)</span>
+<span class="sd">        tuple: (x_escalado, w_escalado) en el intervalo [a, b]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">b</span> <span class="o">+</span> <span class="n">a</span><span class="p">),</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">*</span> <span class="n">w</span>
 </code></pre></div></td></tr></table></div>
@@ -751,93 +1047,28 @@ x_scaled, w_scaled = gaussxwab(0, 2, x, w)</p>
 <div class="doc doc-object doc-function">
 
 
-<h3 id="cuadrature.polinomio" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">polinomio</span><span class="p">(</span><span class="n">varInd</span><span class="p">)</span></code>
+<h3 id="cuadrature.integrando" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">integrando</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></code>
 
 </h3>
 
 
     <div class="doc doc-contents ">
 
-        <p>Function to integrate: x^6 - sin(2x)*x^2</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                <code>varInd</code>
-            </td>
-            <td>
-                  <code><span title="float">float</span> or <span title="array">array</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Input value(s)</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>float or array: Function value(s)</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
+        <p>Función a integrar: f(x) = x^6 - sin(2x)·x^2</p>
 
 
             <details class="quote">
               <summary>Source code in <code>cuadrature.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polinomio</span><span class="p">(</span><span class="n">varInd</span><span class="p">):</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">integrando</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Function to integrate: x^6 - sin(2x)*x^2</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        varInd (float or array): Input value(s)</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        float or array: Function value(s)</span>
+<span class="sd">    Función a integrar: f(x) = x^6 - sin(2x)·x^2</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">varInd</span><span class="o">**</span><span class="mi">6</span> <span class="o">-</span>  <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">varInd</span><span class="p">)</span><span class="o">*</span> <span class="n">varInd</span><span class="o">**</span><span class="mi">2</span> 
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">6</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -905,6 +1136,8 @@ x_scaled, w_scaled = gaussxwab(0, 2, x, w)</p>
       <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
       
         <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
       
     
   </body>
