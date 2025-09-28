@@ -368,6 +368,15 @@ donde:
 <li>Solo es eficaz cuando la función a integrar es relativamente regular. Si presenta regiones problemáticas, se requieren más puntos de muestreo en dichas zonas.</li>
 <li>La evaluación precisa del error resulta complicada si se necesita conocerlo con exactitud.</li>
 </ul>
+<p>Los pesos y puntos de muestreo se determinan de la siguiente manera:</p>
+<ul>
+<li>Los puntos <span class="arithmatex">\(x_k\)</span> son las N raíces (ceros) del polinomio de Legendre <span class="arithmatex">\(P_N(x)\)</span> de grado N. </li>
+<li>Los pesos <span class="arithmatex">\(w_k\)</span> se calculan mediante la expresión:</li>
+</ul>
+<div class="arithmatex">\[
+w_k = \left[ \frac{2}{(1 - x_k^2) \left( P_N'(x_k) \right)^2 } \right]
+\]</div>
+<p>Y se evalua en <span class="arithmatex">\(x_k\)</span></p>
 <h2 id="polinomios-de-legendre">Polinomios de Legendre</h2>
 <p>Los polinomios de Legendre forman un sistema ortogonal que puede definirse recursivamente. Cumplen
 \begin{align}
@@ -393,6 +402,7 @@ La estrategia típica consiste en calcular previamente los puntos de muestreo <s
 x_{\mathrm{esc}} &amp;= \frac{b - a}{2}\, x + \frac{a + b}{2} \\[6pt]
 w_{\mathrm{esc}} &amp;= \frac{b - a}{2}\, w
 \end{align}\]</div>
+<p>Toda esta información se toma del material utilizado en clases por el profesor Marlon para dar la clase. A su vez este material viene del libro Newman - Computational Physics.</p>
 
 
 
