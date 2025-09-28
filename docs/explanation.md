@@ -52,10 +52,10 @@ P_N(x) = \frac{1}{2^N N!}\,\frac{{\rm d}^N}{{\rm d}x^N}\big[(x^2 - 1)^N\big].
 Una vez obtenidos los polinomios de Legendre, se determinan sus raíces y se calculan los pesos $w_k$ siguiendo la regla indicada al inicio.  
 Este procedimiento puede ser costoso según el método empleado.  
 La estrategia típica consiste en calcular previamente los puntos de muestreo $x_k$ y los pesos $w_k$ en el intervalo $[-1,1]$, para luego reescalar estos valores al intervalo de integración deseado $[a,b]$.
-\begin{align*}
+\begin{align}
     x_{\mathrm{esc}} &= \frac{b - a}{2}\, x + \frac{a + b}{2} \\
     w_{\mathrm{esc}} &= \frac{b - a}{2}\, w
-\end{align*}
+\end{align}
 
 
 
