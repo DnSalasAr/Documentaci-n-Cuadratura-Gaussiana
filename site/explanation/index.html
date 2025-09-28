@@ -388,11 +388,11 @@ P_N(x) = \frac{1}{2^N N!}\,\frac{{\rm d}^N}{{\rm d}x^N}\big[(x^2 - 1)^N\big].
 \end{align}</p>
 <p>Una vez obtenidos los polinomios de Legendre, se determinan sus raíces y se calculan los pesos <span class="arithmatex">\(w_k\)</span> siguiendo la regla indicada al inicio.<br />
 Este procedimiento puede ser costoso según el método empleado.<br />
-La estrategia típica consiste en calcular previamente los puntos de muestreo <span class="arithmatex">\(x_k\)</span> y los pesos <span class="arithmatex">\(w_k\)</span> en el intervalo <span class="arithmatex">\([-1,1]\)</span>, para luego reescalar estos valores al intervalo de integración deseado <span class="arithmatex">\([a,b]\)</span>.
-\begin{align}
-    x_{\mathrm{esc}} &amp;= \frac{b - a}{2}\, x + \frac{a + b}{2} \
-    w_{\mathrm{esc}} &amp;= \frac{b - a}{2}\, w
-\end{align}</p>
+La estrategia típica consiste en calcular previamente los puntos de muestreo <span class="arithmatex">\(x_k\)</span> y los pesos <span class="arithmatex">\(w_k\)</span> en el intervalo <span class="arithmatex">\([-1,1]\)</span>, para luego reescalar estos valores al intervalo de integración deseado <span class="arithmatex">\([a,b]\)</span>.</p>
+<div class="arithmatex">\[\begin{align}
+x_{\mathrm{esc}} &amp;= \frac{b - a}{2}\, x + \frac{a + b}{2} \\[6pt]
+w_{\mathrm{esc}} &amp;= \frac{b - a}{2}\, w
+\end{align}\]</div>
 
 
 

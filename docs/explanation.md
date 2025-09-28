@@ -27,7 +27,19 @@ A continuación, veamos las ventajas y desventajas de emplear cuadraturas Gaussi
 * **Desventajas**:
   - Solo es eficaz cuando la función a integrar es relativamente regular. Si presenta regiones problemáticas, se requieren más puntos de muestreo en dichas zonas.
   - La evaluación precisa del error resulta complicada si se necesita conocerlo con exactitud.
+ 
 
+Los pesos y puntos de muestreo se determinan de la siguiente manera:
+
+ - Los puntos $x_k$ son las N raíces (ceros) del polinomio de Legendre $P_N(x)$ de grado N. 
+ - Los pesos $w_k$ se calculan mediante la expresión:
+
+\[
+w_k = \left[ \frac{2}{(1 - x_k^2) \left( P_N'(x_k) \right)^2 } \right]
+\]
+
+Y se evalua en $x_k$
+  
 ## Polinomios de Legendre
 
 Los polinomios de Legendre forman un sistema ortogonal que puede definirse recursivamente. Cumplen
@@ -58,6 +70,6 @@ x_{\mathrm{esc}} &= \frac{b - a}{2}\, x + \frac{a + b}{2} \\[6pt]
 w_{\mathrm{esc}} &= \frac{b - a}{2}\, w
 \end{align}
 
-
+Toda esta información se toma del material utilizado en clases por el profesor Marlon para dar la clase. A su vez este material viene del libro Newman - Computational Physics.
 
 
