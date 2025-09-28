@@ -340,54 +340,59 @@
 
 
 <h1 id="cuadratura-gaussiana">Cuadratura Gaussiana</h1>
-<p>La idea principal está dada por
+<p>La idea fundamental se expresa como
 \begin{align}
-\int_a^b {\rm{d}}x f(x) \approx \sum_{k=1}^{N} w_k f(x_k).
+\int_a^b {\rm d}x\, f(x) \approx \sum_{k=1}^{N} w_k\, f(x_k),
 \end{align}
 donde:
-  * <span class="arithmatex">\(w_k\)</span> son los "pesos"
-  * <span class="arithmatex">\(x_k\)</span> son los puntos de muestreo</p>
-<p>Para las ecuaciones de Newton-Cotes de la clase anterior:<br />
-  * Los puntos de muestreo son <strong>equidistantes</strong>.
-  * Una ecuación de Newton-Cotes de orden <span class="arithmatex">\(N\)</span> es <em>exacta</em> (i.e., no hay aproximación) para un polinomio de grado <span class="arithmatex">\(N\)</span>.
-  * Un polinomio de orden <span class="arithmatex">\(N\)</span> aproxima una función bien comportada mejor que un polinomio de orden <span class="arithmatex">\(N-1\)</span>, debido al grado de libertad añadido.</p>
-<p>Por el otro lado, para la cuadratura Gaussiana:
-  * Los puntos de muestreo se escogen de manera tal que <strong>no son equidistantes</strong>. Esto introduce más grados de libertad para la misma discretización en <span class="arithmatex">\(N\)</span> subregiones.
-  * Es exacta para un polinomio de orden <span class="arithmatex">\((2N - 1)\)</span>.
-  * Es decir, la cuadratura Gaussiana da la misma precisión que un polinomio de orden <span class="arithmatex">\((2N - 1)\)</span>.</p>
-<p>Hablemos de los pros y los contras del uso de cuadraturas Gaussianas para evaluar integrales.</p>
+  * <span class="arithmatex">\(w_k\)</span> representan los <em>pesos</em>,
+  * <span class="arithmatex">\(x_k\)</span> son los puntos de muestreo.</p>
+<p>Para las fórmulas de Newton–Cotes vistas en la clase anterior:
+  * Los puntos de muestreo se encuentran <strong>equispaciados</strong>.
+  * Una regla de Newton–Cotes de orden <span class="arithmatex">\(N\)</span> es <em>exacta</em> (sin error) para cualquier polinomio de grado <span class="arithmatex">\(N\)</span>.
+  * Un polinomio de orden <span class="arithmatex">\(N\)</span> aproxima mejor a una función bien comportada que uno de orden <span class="arithmatex">\(N-1\)</span>, gracias al mayor número de grados de libertad.</p>
+<p>En contraste, para la cuadratura Gaussiana:
+  * Los puntos de muestreo se eligen de manera que <strong>no son equidistantes</strong>, lo que otorga más grados de libertad para una misma discretización en <span class="arithmatex">\(N\)</span> subintervalos.
+  * La regla es exacta para polinomios de grado <span class="arithmatex">\((2N - 1)\)</span>.
+  * En otras palabras, con el mismo número de puntos <span class="arithmatex">\(N\)</span>, se alcanza la precisión de un polinomio de orden <span class="arithmatex">\((2N - 1)\)</span>.</p>
+<p>A continuación, veamos las ventajas y desventajas de emplear cuadraturas Gaussianas para calcular integrales.</p>
 <ul>
-<li>Pros:</li>
-<li>La ecuación para evaluar los errores es muy complicada. Sin embargo, la aproximación mejora con un error que decrece por un factor <span class="arithmatex">\({\rm{const.}} / N^2\)</span> cuando se incrementa el número de subregiones de discretización en uno.</li>
+<li><strong>Ventajas</strong>:</li>
+<li>Aunque la expresión para estimar el error es complicada, la aproximación mejora con un error que decrece aproximadamente como <span class="arithmatex">\({\rm const.}/N^2\)</span> al aumentar el número de subintervalos.</li>
 <li>
-<p>Ejemplo: Pasar de <span class="arithmatex">\(N=10\)</span> a <span class="arithmatex">\(N=11\)</span>, mejora el resultado de la estimación por un factor de <span class="arithmatex">\(\approx 100\)</span>. Esto indica que la convergencia ocurre con muy pocos puntos de muestreo.</p>
+<p>Ejemplo: al pasar de <span class="arithmatex">\(N=10\)</span> a <span class="arithmatex">\(N=11\)</span>, la estimación mejora en un factor cercano a <span class="arithmatex">\(100\)</span>, lo que muestra que la convergencia puede lograrse con pocos puntos de muestreo.</p>
 </li>
 <li>
-<p>Cons:</p>
+<p><strong>Desventajas</strong>:</p>
 </li>
-<li>Sólo funciona bien su la función a integrar es relativamente bien comportada. Si no lo es, se requiren más puntos de muestreo cerca de las regiones problemáticas.</li>
-<li>Es muy complicado evaluar el error de manera precisa si lo necesitamos.</li>
+<li>Solo es eficaz cuando la función a integrar es relativamente regular. Si presenta regiones problemáticas, se requieren más puntos de muestreo en dichas zonas.</li>
+<li>La evaluación precisa del error resulta complicada si se necesita conocerlo con exactitud.</li>
 </ul>
 <h2 id="polinomios-de-legendre">Polinomios de Legendre</h2>
-<p>Los polinomios de Legendre son un sistema de polinomios ortogonales que pueden ser definidos de manera recursiva. Tenemos:
+<p>Los polinomios de Legendre forman un sistema ortogonal que puede definirse recursivamente. Cumplen
 \begin{align}
-\forall (M, N) \in\mathbb N^2, \quad \int_{-1}^1 {\rm{d}}x P_N(x)P_M(x) = \frac{2\delta_{MN}}{2N+1}.
+\forall (M,N)\in \mathbb{N}^2,\quad \int_{-1}^1 {\rm d}x\, P_N(x) P_M(x) = \frac{2\,\delta_{MN}}{2N+1}.
 \end{align}
-Note que los polinomios están definidos en el intervalo <span class="arithmatex">\([-1, 1]\)</span>.
-Los se definen empezando con
+Obsérvese que están definidos en el intervalo <span class="arithmatex">\([-1,1]\)</span>.</p>
+<p>Se inician con
 \begin{align}
-P_0(x) = 1 \Rightarrow P_1(x) = x,
+P_0(x) = 1,\qquad P_1(x) = x,
 \end{align}
-tal que los siguientes órdenes se generan con la regla de recursividad
+y los órdenes superiores se obtienen mediante la relación de recurrencia
 \begin{align}
-(N+1)P_{N+1}(x) = (2N+1)xP_N(x) -NP_{N-1}(x).
+(N+1)P_{N+1}(x) = (2N+1)xP_N(x) - N P_{N-1}(x).
 \end{align}
-Alternativamente, los polinomios pueden ser definidos de manera iterativa bajo la regla (fórmula de Rodrigues)
+De forma alternativa, también pueden definirse de manera iterativa mediante la fórmula de Rodrigues:
 \begin{align}
-P_N(x) = \frac1{2^N N!}\frac{d^N}{dx^N}\left[(x^2-1)^N\right].
+P_N(x) = \frac{1}{2^N N!}\,\frac{{\rm d}^N}{{\rm d}x^N}\big[(x^2 - 1)^N\big].
 \end{align}</p>
-<p>Una vez que conocemos los polinomios de Legendre, debemos encontrar sus raíces y calcular los pesos de acuerdo con la regla que describimos al inicio de este notebook.</p>
-<p>Esto es un procedimiento ligeramente costoso dependiendo de la metodología que se utilice. La idea es que si necesitamos evaluar la integral utilizando distintos intervalos de integración, primero realizamos el cálculo de los puntos de muestreo <span class="arithmatex">\(x_k\)</span> y los pesos <span class="arithmatex">\(w_k\)</span> en el intervalo <span class="arithmatex">\([-1, 1]\)</span>. Posteriormente, podemos escalar los parámetros para ser modificados a un intervalo <span class="arithmatex">\([a, b]\)</span></p>
+<p>Una vez obtenidos los polinomios de Legendre, se determinan sus raíces y se calculan los pesos <span class="arithmatex">\(w_k\)</span> siguiendo la regla indicada al inicio.<br />
+Este procedimiento puede ser costoso según el método empleado.<br />
+La estrategia típica consiste en calcular previamente los puntos de muestreo <span class="arithmatex">\(x_k\)</span> y los pesos <span class="arithmatex">\(w_k\)</span> en el intervalo <span class="arithmatex">\([-1,1]\)</span>, para luego reescalar estos valores al intervalo de integración deseado <span class="arithmatex">\([a,b]\)</span>.
+\begin{align}
+x_{\mathrm{esc}} &amp;= \frac{b - a}{2}\, x + \frac{a + b}{2} \[6pt]
+w_{\mathrm{esc}} &amp;= \frac{b - a}{2}\, w
+\end{align}</p>
 
 
 
