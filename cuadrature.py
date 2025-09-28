@@ -5,7 +5,7 @@ La integral es de 1 a 3.
 
 Este programa encuentra el número óptimo de puntos N mediante convergencia sucesiva (sugerecia del profesor) y calcula la integral.
 """
-
+from scipy.special import legendre
 import numpy as np
 
 def gaussxw(N):
@@ -39,7 +39,14 @@ def gaussxwab(a, b, x, w):
 def integrando(x):
     """
     Función a integrar: f(x) = x^6 - sin(2x)·x^2
+    
+    Args:
+        x (float): Puntos donde se evalua la función
+
+    Returns:
+        float: Imagen de la función
     """
+    
     return x**6 - np.sin(2*x) * x**2
 
 def calcular_integral(N, a=1, b=3): #En este caso la integral es de 1 a 3, por eso a y b tienen valores predeterminados
@@ -92,7 +99,7 @@ def encontrar_N_optimo(tolerancia=1e-10, N_max=20):
         I_anterior = I_actual
     
     print(f"\nNo se alcanzó convergencia en {N_max} iteraciones")
-    print(f"Última diferencia: {historia[-1][2]:.2e}")
+    print(f"Última diferencia: {historial[-1][2]:.2e}")
     return N_max, I_actual, historial
 
 if __name__ == "__main__":

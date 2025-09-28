@@ -1,57 +1,65 @@
 # Cuadratura Gaussiana
 
-La idea principal está dada por
+La idea fundamental se expresa como
 \begin{align}
-\int_a^b {\rm{d}}x f(x) \approx \sum_{k=1}^{N} w_k f(x_k).
+\int_a^b {\rm d}x\, f(x) \approx \sum_{k=1}^{N} w_k\, f(x_k),
 \end{align}
 donde:
-  * $w_k$ son los "pesos"
-  * $x_k$ son los puntos de muestreo
-  
+  * $w_k$ representan los *pesos*,
+  * $x_k$ son los puntos de muestreo.
 
-Para las ecuaciones de Newton-Cotes de la clase anterior:  
-  * Los puntos de muestreo son **equidistantes**.
-  * Una ecuación de Newton-Cotes de orden $N$ es *exacta* (i.e., no hay aproximación) para un polinomio de grado $N$.
-  * Un polinomio de orden $N$ aproxima una función bien comportada mejor que un polinomio de orden $N-1$, debido al grado de libertad añadido.
-  
-Por el otro lado, para la cuadratura Gaussiana:
-  * Los puntos de muestreo se escogen de manera tal que **no son equidistantes**. Esto introduce más grados de libertad para la misma discretización en $N$ subregiones.
-  * Es exacta para un polinomio de orden $(2N - 1)$.
-  * Es decir, la cuadratura Gaussiana da la misma precisión que un polinomio de orden $(2N - 1)$.
+Para las fórmulas de Newton–Cotes vistas en la clase anterior:
+  * Los puntos de muestreo se encuentran **equispaciados**.
+  * Una regla de Newton–Cotes de orden $N$ es *exacta* (sin error) para cualquier polinomio de grado $N$.
+  * Un polinomio de orden $N$ aproxima mejor a una función bien comportada que uno de orden $N-1$, gracias al mayor número de grados de libertad.
 
-Hablemos de los pros y los contras del uso de cuadraturas Gaussianas para evaluar integrales.
+En contraste, para la cuadratura Gaussiana:
+  * Los puntos de muestreo se eligen de manera que **no son equidistantes**, lo que otorga más grados de libertad para una misma discretización en $N$ subintervalos.
+  * La regla es exacta para polinomios de grado $(2N - 1)$.
+  * En otras palabras, con el mismo número de puntos $N$, se alcanza la precisión de un polinomio de orden $(2N - 1)$.
 
-* Pros:
-  - La ecuación para evaluar los errores es muy complicada. Sin embargo, la aproximación mejora con un error que decrece por un factor ${\rm{const.}} / N^2$ cuando se incrementa el número de subregiones de discretización en uno.
-  - Ejemplo: Pasar de $N=10$ a $N=11$, mejora el resultado de la estimación por un factor de $\approx 100$. Esto indica que la convergencia ocurre con muy pocos puntos de muestreo.
-  
-* Cons:
-  - Sólo funciona bien su la función a integrar es relativamente bien comportada. Si no lo es, se requiren más puntos de muestreo cerca de las regiones problemáticas.
-  - Es muy complicado evaluar el error de manera precisa si lo necesitamos.
+A continuación, veamos las ventajas y desventajas de emplear cuadraturas Gaussianas para calcular integrales.
 
+* **Ventajas**:
+  - Aunque la expresión para estimar el error es complicada, la aproximación mejora con un error que decrece aproximadamente como ${\rm const.}/N^2$ al aumentar el número de subintervalos.
+  - Ejemplo: al pasar de $N=10$ a $N=11$, la estimación mejora en un factor cercano a $100$, lo que muestra que la convergencia puede lograrse con pocos puntos de muestreo.
 
+* **Desventajas**:
+  - Solo es eficaz cuando la función a integrar es relativamente regular. Si presenta regiones problemáticas, se requieren más puntos de muestreo en dichas zonas.
+  - La evaluación precisa del error resulta complicada si se necesita conocerlo con exactitud.
 
 ## Polinomios de Legendre
 
-Los polinomios de Legendre son un sistema de polinomios ortogonales que pueden ser definidos de manera recursiva. Tenemos:
+Los polinomios de Legendre forman un sistema ortogonal que puede definirse recursivamente. Cumplen
 \begin{align}
-\forall (M, N) \in\mathbb N^2, \quad \int_{-1}^1 {\rm{d}}x P_N(x)P_M(x) = \frac{2\delta_{MN}}{2N+1}.
+\forall (M,N)\in \mathbb{N}^2,\quad \int_{-1}^1 {\rm d}x\, P_N(x) P_M(x) = \frac{2\,\delta_{MN}}{2N+1}.
 \end{align}
-Note que los polinomios están definidos en el intervalo $[-1, 1]$.
-Los se definen empezando con
+Obsérvese que están definidos en el intervalo $[-1,1]$.
+
+Se inician con
 \begin{align}
-P_0(x) = 1 \Rightarrow P_1(x) = x,
+P_0(x) = 1,\qquad P_1(x) = x,
 \end{align}
-tal que los siguientes órdenes se generan con la regla de recursividad
+y los órdenes superiores se obtienen mediante la relación de recurrencia
 \begin{align}
-(N+1)P_{N+1}(x) = (2N+1)xP_N(x) -NP_{N-1}(x).
+(N+1)P_{N+1}(x) = (2N+1)xP_N(x) - N P_{N-1}(x).
 \end{align}
-Alternativamente, los polinomios pueden ser definidos de manera iterativa bajo la regla (fórmula de Rodrigues)
+De forma alternativa, también pueden definirse de manera iterativa mediante la fórmula de Rodrigues:
 \begin{align}
-P_N(x) = \frac1{2^N N!}\frac{d^N}{dx^N}\left[(x^2-1)^N\right].
+P_N(x) = \frac{1}{2^N N!}\,\frac{{\rm d}^N}{{\rm d}x^N}\big[(x^2 - 1)^N\big].
 \end{align}
 
-Una vez que conocemos los polinomios de Legendre, debemos encontrar sus raíces y calcular los pesos de acuerdo con la regla que describimos al inicio de este notebook.
+Una vez obtenidos los polinomios de Legendre, se determinan sus raíces y se calculan los pesos $w_k$ siguiendo la regla indicada al inicio.  
+Este procedimiento puede ser costoso según el método empleado.  
+La estrategia típica consiste en calcular previamente los puntos de muestreo $x_k$ y los pesos $w_k$ en el intervalo $[-1,1]$, para luego reescalar estos valores al intervalo de integración deseado $[a,b]$.
+\begin{align}
+x_{\mathrm{esc}} &= \frac{b - a}{2}\, x + \frac{a + b}{2} \\[6pt]
+w_{\mathrm{esc}} &= \frac{b - a}{2}\, w
+\end{align}
 
-Esto es un procedimiento ligeramente costoso dependiendo de la metodología que se utilice. La idea es que si necesitamos evaluar la integral utilizando distintos intervalos de integración, primero realizamos el cálculo de los puntos de muestreo $x_k$ y los pesos $w_k$ en el intervalo $[-1, 1]$. Posteriormente, podemos escalar los parámetros para ser modificados a un intervalo $[a, b]$
+
+
+
+
+
 

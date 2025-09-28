@@ -343,34 +343,22 @@
 <h2 id="uso-basico">Uso básico</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">cuadrature</span><span class="w"> </span><span class="kn">import</span> <span class="n">gaussxw</span><span class="p">,</span> <span class="n">gaussxwab</span><span class="p">,</span> <span class="n">polinomio</span>
 
-<span class="c1"># Integrate the function from 1 to 3 with 7 points</span>
+<span class="c1"># Integrar la función de 1 a 3 con 7 puntos</span>
 <span class="n">N</span> <span class="o">=</span> <span class="mi">7</span>
-<span class="n">x</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">gaussxw</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
-<span class="n">x_scaled</span><span class="p">,</span> <span class="n">w_scaled</span> <span class="o">=</span> <span class="n">gaussxwab</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
-<span class="n">result</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">polinomio</span><span class="p">(</span><span class="n">x_scaled</span><span class="p">)</span> <span class="o">*</span> <span class="n">w_scaled</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Integration result with N=</span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cuadrature</span><span class="w"> </span><span class="kn">import</span> <span class="n">calcular_integral</span><span class="p">,</span> <span class="n">encontrar_N_optimo</span>
 
-<span class="c1"># Test different numbers of points to find optimal N</span>
-<span class="n">difMinima</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
-<span class="n">masCerca</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">mejorN</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="c1"># Calcular la integral con un número específico de puntos</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">resultado</span> <span class="o">=</span> <span class="n">calcular_integral</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Resultado con N=</span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">resultado</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">15</span><span class="p">):</span>
-    <span class="n">x</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">gaussxw</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-    <span class="n">x_scaled</span><span class="p">,</span> <span class="n">w_scaled</span> <span class="o">=</span> <span class="n">gaussxwab</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
-    <span class="n">Integral</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">polinomio</span><span class="p">(</span><span class="n">x_scaled</span><span class="p">)</span> <span class="o">*</span> <span class="n">w_scaled</span><span class="p">)</span>
+<span class="c1"># Encontrar el N óptimo automáticamente por convergencia</span>
+<span class="n">N_optimo</span><span class="p">,</span> <span class="n">valor_optimo</span><span class="p">,</span> <span class="n">historia</span> <span class="o">=</span> <span class="n">encontrar_N_optimo</span><span class="p">(</span><span class="n">tolerancia</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">)</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;N=</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">Integral</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="c1"># Con WolframAlpha se sabe que el valor de la integral es el siguiente</span>
-    <span class="n">expected</span> <span class="o">=</span> <span class="mf">317.344246673826356</span>
-    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">Integral</span> <span class="o">-</span> <span class="n">expected</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">difMinima</span><span class="p">:</span>
-        <span class="n">difMinima</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">Integral</span> <span class="o">-</span> <span class="n">expected</span><span class="p">)</span>
-        <span class="n">masCerca</span> <span class="o">=</span> <span class="n">Integral</span>
-        <span class="n">mejorN</span> <span class="o">=</span> <span class="n">i</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Optimal N: </span><span class="si">{</span><span class="n">mejorN</span><span class="si">}</span><span class="s2">, Value: </span><span class="si">{</span><span class="n">masCerca</span><span class="si">}</span><span class="s2">, Difference: </span><span class="si">{</span><span class="n">difMinima</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> 
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">N óptimo encontrado: </span><span class="si">{</span><span class="n">N_optimo</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Valor de la integral: </span><span class="si">{</span><span class="n">valor_optimo</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Diferencia con valor de referencia: </span><span class="si">{</span><span class="nb">abs</span><span class="p">(</span><span class="n">valor_optimo</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">317.344246673826356</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 
 
@@ -426,6 +414,8 @@
       <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
       
         <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
       
     
   </body>
