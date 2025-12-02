@@ -92,7 +92,6 @@ def encontrar_N_optimo(tolerancia=1e-10, N_max=20):
         
         # Verificar convergencia
         if diferencia < tolerancia:
-            print(f"\n¡Convergencia alcanzada!")
             print(f"I_{N} ≈ I_{N-1} con diferencia: {diferencia:.2e}")
             return N, I_actual, historial
         
@@ -108,5 +107,6 @@ if __name__ == "__main__":
         
     print(f"RESULTADO FINAL:")
     print(f"N óptimo: {N_optimo}")
-    print(f"Valor de la integral: {valor_optimo:.10f}")
+    print(f"Valor de la integral: {valor_optimo:.13f}")#El último decimal pueder variar por el error de redondeo y de punto flotante. 
+                                                        #Pero justo puso esos decimales en el .md, entonces así se va. Sería mejor poner menos en ambas siempre
     print(f"Diferencia con WolframAlpha: {abs(valor_optimo - 317.344246673826356):.2e}")
